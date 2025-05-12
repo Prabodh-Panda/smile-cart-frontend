@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import productsApi from "apis/products";
+import AddToCart from "components/commons/AddToCart";
 import Header from "components/commons/Header";
 import PageLoader from "components/commons/PageLoader";
 import { Typography } from "neetoui";
@@ -63,6 +64,7 @@ const Product = () => {
           <Typography className="font-semibold text-green-600">
             {discountPercentage}% off
           </Typography>
+          <AddToCart {...{ slug }} />
         </div>
       </div>
     </div>
