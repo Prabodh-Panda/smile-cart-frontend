@@ -7,7 +7,9 @@ import ProductCard from "components/Product/ProductCard";
 import { cartTotalOf } from "components/utils";
 import { NoData, Toastr } from "neetoui";
 import { isEmpty, keys } from "ramda";
+import i18n from "src/common/i18n";
 import useCartItemsStore from "stores/useCartItemsStore";
+import withTitle from "utils/withTitle";
 
 import PriceCard from "./PriceCard";
 
@@ -85,4 +87,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default withTitle(Cart, i18n.t("cart.title"));
