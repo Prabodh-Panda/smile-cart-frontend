@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
-
-import productsApi from "apis/products";
 import AddToCart from "components/commons/AddToCart";
 import Header from "components/commons/Header";
 import PageLoader from "components/commons/PageLoader";
+import { useShowProduct } from "hooks/reactQuery/useProductsApi";
 import useSelectedQuantity from "hooks/useSelectedQuantity";
 import { Typography, Button } from "neetoui";
-import { append, isNotNil } from "ramda";
+import { isNotNil } from "ramda";
 import { useParams } from "react-router-dom";
 import routes from "routes";
 
@@ -16,26 +14,9 @@ import PageNotFound from "../commons/PageNotFound";
 
 const Product = () => {
   const { slug } = useParams();
-  const [product, setProduct] = useState({});
-  const [isError, setIsError] = useState(false);
 
+  const { data: product = {}, isLoading, isError } = useShowProduct(slug);
   const { selectedQuantity, setSelectedQuantity } = useSelectedQuantity(slug);
-
-  const fetchProduct = async () => {
-    try {
-      const response = await productsApi.show(slug);
-      setProduct(response);
-    } catch (error) {
-      setIsError(true);
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchProduct();
-  }, []);
 
   const {
     name,
@@ -46,7 +27,6 @@ const Product = () => {
     imageUrl,
     availableQuantity,
   } = product;
-  const [isLoading, setIsLoading] = useState(true);
   const totalDiscounts = mrp - offerPrice;
   const discountPercentage = ((totalDiscounts / mrp) * 100).toFixed(1);
 
@@ -62,7 +42,7 @@ const Product = () => {
       <div className="mt-6 flex gap-4">
         <div className="w-2/5">
           {isNotNil(imageUrls) ? (
-            <Carousel imageUrls={append(imageUrl, imageUrls)} title={name} />
+            <Carousel />
           ) : (
             <img alt={name} className="w-48" src={imageUrl} />
           )}
