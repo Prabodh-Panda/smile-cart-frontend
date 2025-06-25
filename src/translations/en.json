@@ -53,5 +53,10 @@
   "subtotal": "Subtotal <span>${{totalPrice}}</span>",
   "totalPayablePrice": "Total Payable <span>${{totalPrice}}</span>",
   "deliveryCharges": "Delivery charges <span>FREE</span>",
-  "saveInformationForNextTime": "Save this information for next time"
+  "saveInformationForNextTime": "Save this information for next time",
+  "product": {
+    "error": {
+      "removedFromCart": "{{name}} is no longer available and has been removed from cart"
+    }
+  }
 }
